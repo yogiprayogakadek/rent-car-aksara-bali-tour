@@ -18,3 +18,6 @@
         codeBlock.textContent = codeBlock.innerHTML;
     });
 </script>
+
+{{-- STACK SCRIPT / JS --}}
+@stack('script')
