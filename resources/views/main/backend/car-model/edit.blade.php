@@ -32,21 +32,25 @@
                                     class="form-select @error('car_type') is-invalid @enderror">
                                     <option value="">Choose car type...</option>
                                     @foreach ($carTypes as $key => $value)
-                                        <option value="{{ $key }}" {{ old('car_type') == $key ? 'selected' : '' }}>
+                                        <option value="{{ $key }}"
+                                            {{ $carModel->car_type == $key ? 'selected' : '' }}>
                                             {{ $value }}
                                         </option>
                                     @endforeach
-                                    <option value="other" {{ old('car_type') == 'other' ? 'selected' : '' }}>Other</option>
+                                    <option value="other"
+                                        {{ !array_key_exists($carModel->car_type, $carTypes) ? 'selected' : '' }}>
+                                        Other
+                                    </option>
                                 </select>
                                 @error('car_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 mt-2" id="otherCarTypeWrapper" style="display: none;">
+                            <div class="col-sm-12 mt-2" id="otherCarTypeWrapper">
                                 <input type="text" class="form-control @error('other_car_type') is-invalid @enderror"
                                     id="otherCarType" name="other_car_type" placeholder="Enter car type"
-                                    value="{{ old('other_car_type') }}">
+                                    value="{{ !array_key_exists($carModel->car_type, $carTypes) ? $carModel->car_type : '' }}">
                                 @error('other_car_type')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -62,11 +66,12 @@
                                     <option value="">Choose car brand...</option>
                                     @foreach ($carBrands as $key => $value)
                                         <option value="{{ $key }}"
-                                            {{ old('car_brand') == $key ? 'selected' : '' }}>
+                                            {{ $carModel->car_brand == $key ? 'selected' : '' }}>
                                             {{ $value }}
                                         </option>
                                     @endforeach
-                                    <option value="other" {{ old('car_brand') == 'other' ? 'selected' : '' }}>Other
+                                    <option value="other"
+                                        {{ !array_key_exists($carModel->car_brand, $carBrands) ? 'selected' : '' }}>Other
                                     </option>
                                 </select>
                                 @error('car_brand')
@@ -74,10 +79,10 @@
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 mt-2" id="otherCarBrandWrapper" style="display: none;">
+                            <div class="col-sm-12 mt-2" id="otherCarBrandWrapper">
                                 <input type="text" class="form-control @error('other_car_brand') is-invalid @enderror"
                                     id="otherCarBrand" name="other_car_brand" placeholder="Enter car brand"
-                                    value="{{ old('other_car_brand') }}">
+                                    value="{{ !array_key_exists($carModel->car_brand, $carBrands) ? $carModel->car_brand : '' }}">
                                 @error('other_car_brand')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -90,7 +95,7 @@
                             <div class="col-sm-12">
                                 <input type="text" class="form-control @error('car_price') is-invalid @enderror"
                                     id="carPrice" name="car_price" placeholder="Enter rent car price"
-                                    value="{{ old('car_price') }}">
+                                    value="{{ number_format($carModel->car_price, 0, '.', '.') }}">
                                 @error('car_price')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -102,7 +107,7 @@
                             <label for="carDescription" class="form-label col-sm-3 col-form-label">Car Description</label>
                             <div class="col-sm-12">
                                 <textarea class="form-control @error('car_description') is-invalid @enderror" id="carDescription" rows="5"
-                                    name="car_description" placeholder="Enter car description">{{ old('car_description') }}</textarea>
+                                    name="car_description" placeholder="Enter car description">{{ $carModel->car_description }}</textarea>
                                 @error('car_description')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
@@ -125,24 +130,35 @@
 @push('script')
     <script>
         $(document).ready(function() {
+            // Sembunyikan semua di awal
             $('#otherCarTypeWrapper').hide();
             $('#otherCarBrandWrapper').hide();
 
+            // Tampilkan kalau sudah "other" pas halaman load (misalnya edit form)
+            if ($('#carType').val() === 'other') {
+                $('#otherCarTypeWrapper').show();
+            }
+            if ($('#carBrand').val() === 'other') {
+                $('#otherCarBrandWrapper').show();
+            }
+
+            // Event listener untuk carType
             $('#carType').change(function() {
                 if ($(this).val() === 'other') {
                     $('#otherCarTypeWrapper').show();
                 } else {
                     $('#otherCarTypeWrapper').hide();
-                    $('#otherCarTypeWrapper').val('');
+                    $('#otherCarType').val(''); // reset input
                 }
             });
 
+            // Event listener untuk carBrand
             $('#carBrand').change(function() {
                 if ($(this).val() === 'other') {
                     $('#otherCarBrandWrapper').show();
                 } else {
                     $('#otherCarBrandWrapper').hide();
-                    $('#otherCarBrandWrapper').val('');
+                    $('#otherCarBrand').val(''); // reset input
                 }
             });
 

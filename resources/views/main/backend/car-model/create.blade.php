@@ -42,7 +42,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 mt-2" id="otherCarTypeWrapper" style="display: none;">
+                            <div class="col-sm-12 mt-2" id="otherCarTypeWrapper">
                                 <input type="text" class="form-control @error('other_car_type') is-invalid @enderror"
                                     id="otherCarType" name="other_car_type" placeholder="Enter car type"
                                     value="{{ old('other_car_type') }}">
@@ -73,7 +73,7 @@
                                 @enderror
                             </div>
 
-                            <div class="col-sm-12 mt-2" id="otherCarBrandWrapper" style="display: none;">
+                            <div class="col-sm-12 mt-2" id="otherCarBrandWrapper">
                                 <input type="text" class="form-control @error('other_car_brand') is-invalid @enderror"
                                     id="otherCarBrand" name="other_car_brand" placeholder="Enter car brand"
                                     value="{{ old('other_car_brand') }}">
@@ -132,7 +132,7 @@
                     $('#otherCarTypeWrapper').show();
                 } else {
                     $('#otherCarTypeWrapper').hide();
-                    $('#otherCarTypeWrapper').val('');
+                    $('#otherCarType').val('');
                 }
             });
 
@@ -141,7 +141,7 @@
                     $('#otherCarBrandWrapper').show();
                 } else {
                     $('#otherCarBrandWrapper').hide();
-                    $('#otherCarBrandWrapper').val('');
+                    $('#otherCarBrand').val('');
                 }
             });
 

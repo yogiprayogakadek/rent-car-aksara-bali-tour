@@ -43,6 +43,7 @@ class CarModelController extends Controller
             'car_price'       => 'required|numeric|min:0',
             'other_car_type'  => 'nullable|required_if:car_type,other|string|max:255',
             'other_car_brand' => 'nullable|required_if:car_brand,other|string|max:255',
+            'car_description' => 'nullable|string',
         ], [
             'car_name.required'         => 'Car name is required.',
             'car_name.string'           => 'Car name must be a valid text.',
@@ -63,6 +64,8 @@ class CarModelController extends Controller
 
             'other_car_brand.required_if' => 'Other car brand is required when car brand is set to "Other".',
             'other_car_brand.string'    => 'Other car brand must be a valid text.',
+
+            'car_description.string'           => 'Car description must be a valid text.',
         ]);
 
         // Replace dengan "other" value kalau dipilih
@@ -102,6 +105,7 @@ class CarModelController extends Controller
             'car_price'       => 'required|numeric|min:0',
             'other_car_type'  => 'nullable|required_if:car_type,other|string|max:255',
             'other_car_brand' => 'nullable|required_if:car_brand,other|string|max:255',
+            'car_description' => 'nullable|string',
         ], [
             'car_name.required'         => 'Car name is required.',
             'car_name.string'           => 'Car name must be a valid text.',
@@ -122,6 +126,8 @@ class CarModelController extends Controller
 
             'other_car_brand.required_if' => 'Other car brand is required when car brand is set to "Other".',
             'other_car_brand.string'    => 'Other car brand must be a valid text.',
+
+            'car_description.string'           => 'Car description must be a valid text.',
         ]);
 
         // Replace dengan "other" value kalau dipilih
